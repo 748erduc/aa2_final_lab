@@ -1,0 +1,5 @@
+---
+activationkey: gpte-labs-rhel8
+activationorg: prod
+satellite_url: satellite.example.com
+satellite_katello_cert: http://satellite.example.com/pub/katello-ca-consumer-latest.noarch.rpm

@@ -1,0 +1,54 @@
+---
+- name: setfact dns entry
+  set_fact:
+    newdnsentry: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+  delegate_to: localhost
+  run_once: true
+
+- name: debug dns entry
+  debug:
+    var:
+      newdnsentry
+  delegate_to: localhost
+  run_once: true
+
+- name: change dns ip in ifcfg file
+  lineinfile:
+    path: /etc/sysconfig/network-scripts/ifcfg-eth0
+    line: "{{ item }}"
+    state: present
+  loop:
+    - PEERDNS=no # needed to survive reboots
+    - DNS1={{ newdnsentry }}
+  register: network_really # register if something changed
+
+- name: if network changed restart network
+  service:
+    name: NetworkManager
+    state: restarted
+  when: network_really.changed
+
+# now the redhat subscription
+- name: install katello package
+  yum:
+    name: "{{ satellite_katello_cert }}"
+    state: present
+    disable_gpg_check: true
+
+- name: register the system
+  redhat_subscription:
+    state: present
+    activationkey: "{{ activationkey }}"
+    org_id: "{{ activationorg }}" 
+    auto_attach: true
+
+- name: install firewall
+  dnf:
+    name: firewalld
+    state: latest
+
+#    - name: start firewalld
+#      service:
+#        name: firewalld
+#        enabled: yes
+#        state: started
