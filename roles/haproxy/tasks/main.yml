@@ -5,6 +5,33 @@
     name: "{{ load_balancer_packages }}"
     state: present
 
+- name: open service ports if set
+  firewalld:
+    service: "{{ item }}"
+    state: enabled
+    immediate: true
+    permanent: true
+  loop: "{{ service_ports }}"
+  when: service_ports is defined
+
+- name: open tcp ports if set
+  firewalld:
+    port: "{{ item }}"
+    permanent: yes
+    immediate: yes
+    state: enabled
+  loop: "{{ tcp_ports }}"
+  when: tcp_ports is defined
+
+- name: open udp ports if set
+  firewalld:
+    port: "{{ item }}"
+    permanent: yes
+    immediate: yes
+    state: enabled
+  loop: "{{ udp_ports }}"
+  when: udp_ports is defined
+
 - name: Configure haproxy load balancing
   template:
     src: haproxy.cfg.j2

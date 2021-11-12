@@ -3,3 +3,7 @@ activationkey: gpte-labs-rhel8
 activationorg: prod
 satellite_url: satellite.example.com
 satellite_katello_cert: http://satellite.example.com/pub/katello-ca-consumer-latest.noarch.rpm
+dnserver:
+  - 192.168.50.62
+  - 150.239.16.12
+  - 8.8.8.8

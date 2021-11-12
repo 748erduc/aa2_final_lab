@@ -1,2 +1,5 @@
 ---
-# defaults file for roles/haproxy
+load_balancer_packages:
+  - haproxy
+tcp_ports:
+  - 80/tcp
