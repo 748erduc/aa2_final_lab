@@ -1,0 +1,11 @@
+---
+- name: install postgres
+  hosts: database_servers
+  become: true
+  collections:
+    - community.postgresql
+  tags:
+    - database_servers
+  roles:
+    - role: postgres
+

@@ -1,0 +1,9 @@
+---
+- name: install haproxy
+  hosts: load_balancers
+  become: true
+  tags:
+    - load_balancers
+  roles:
+    - role: haproxy
+

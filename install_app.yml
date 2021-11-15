@@ -1,0 +1,9 @@
+---
+- name: install flask
+  hosts: app_servers
+  become: true
+  tags:
+    - application_servers
+  roles:
+    - role: flask
+

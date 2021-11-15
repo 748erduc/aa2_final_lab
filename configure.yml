@@ -1,0 +1,8 @@
+---
+- name: run dns and subscription part
+  hosts: internal
+  become: true
+  roles:
+    - role: configure
+
+
