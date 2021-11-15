@@ -1,6 +1,5 @@
 ---
 - name: Add appdb1 IP address to app servers /etc/hosts
-  gather_facts: true
   lineinfile:
     dest: /etc/hosts
     regexp: '.*appdb1$'
