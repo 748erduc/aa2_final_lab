@@ -10,7 +10,7 @@
 
     - debug:
         msg: 
-          - "IP is {{ hostvars['db.example.com']['ansible_default_ipv4']['address'] }}"
+          - "IP is {{ hostvars['db']['ansible_default_ipv4']['address'] }}"
           - "First App server  {{ groups.app_servers[0] }}" 
         verbosity: 2        
 
