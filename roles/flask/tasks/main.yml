@@ -1,9 +1,10 @@
 ---
 - name: Add appdb1 IP address to app servers /etc/hosts
+  gather_facts: true
   lineinfile:
     dest: /etc/hosts
     regexp: '.*appdb1$'
-    line: "{{ hostvars['db']['accessIPv4'] }} appdb1 database-01"
+    line: "{{ hostvars['db']['ansible_default_ipv4']['address'] }} appdb1 database-01"
     state: present
 
 - name: open service ports if set
