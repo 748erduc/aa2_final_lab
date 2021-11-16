@@ -1,7 +1,8 @@
 ---
 - name: run dns and subscription part
-  hosts: internal
+  hosts: load_balancers,app_servers,database_servers
   become: true
+
   roles:
     - role: configure
 
